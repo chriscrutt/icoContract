@@ -139,9 +139,6 @@
                 "inputs": [{
                     "type": "address",
                     "name": "_tokenAddress"
-                }, {
-                    "type": "uint256",
-                    "name": "_total_shares"
                 }],
                 "constant": false,
                 "payable": false,
@@ -156,7 +153,7 @@
                 "constant": true,
                 "payable": false,
                 "type": "function",
-                "gas": 2707
+                "gas": 5322
             }, {
                 "name": "buyStock",
                 "outputs": [],
@@ -164,7 +161,7 @@
                 "constant": false,
                 "payable": true,
                 "type": "function",
-                "gas": 122037
+                "gas": 50971
             }, {
                 "name": "getHolding",
                 "outputs": [{
@@ -178,11 +175,12 @@
                 "constant": true,
                 "payable": false,
                 "type": "function",
-                "gas": 2237
+                "gas": 4852
             }, {
                 "name": "cash",
                 "outputs": [{
                     "type": "uint256",
+                    "unit": "wei",
                     "name": ""
                 }],
                 "inputs": [],
@@ -205,9 +203,9 @@
                 "type": "function",
                 "gas": 38231
             }, {
-                "name": "totalShares",
+                "name": "price",
                 "outputs": [{
-                    "type": "uint256",
+                    "type": "fixed168x10",
                     "name": ""
                 }],
                 "inputs": [],
@@ -215,17 +213,6 @@
                 "payable": false,
                 "type": "function",
                 "gas": 1481
-            }, {
-                "name": "price",
-                "outputs": [{
-                    "type": "uint256",
-                    "name": ""
-                }],
-                "inputs": [],
-                "constant": true,
-                "payable": false,
-                "type": "function",
-                "gas": 1511
             }, {
                 "name": "buy_order",
                 "outputs": [{
@@ -236,7 +223,7 @@
                 "constant": true,
                 "payable": false,
                 "type": "function",
-                "gas": 1541
+                "gas": 1511
             }, {
                 "name": "owner",
                 "outputs": [{
@@ -247,8 +234,8 @@
                 "constant": true,
                 "payable": false,
                 "type": "function",
-                "gas": 1571
-            }]).at('0x7f1ba34485709c4d2b52a5cacae50f35c5507039');
+                "gas": 1541
+            }]).at('0xcccd97655c5b48ba055f3ec071c003401eb1f7ce');
         console.log("icoContract", icoContract);
 
         const buyButton = document.getElementById('buy');

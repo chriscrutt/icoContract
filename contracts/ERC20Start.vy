@@ -23,7 +23,6 @@ def __init__():
     self.name = "Test Token"
     self.symbol = "TETO"
     self.decimals = 0
-    self.balanceOf[msg.sender] = init_supply
     self.total_supply = init_supply
     self.owner = msg.sender
 
@@ -53,6 +52,8 @@ def transfer(_to : address, _value : uint256) -> bool:
 def setMinter(_minter: address):
     assert msg.sender == self.owner
     self.minter = _minter
+    self.balanceOf[_minter] = self.total_supply
+
     log.Transfer(ZERO_ADDRESS, self.minter, self.total_supply)
 
 

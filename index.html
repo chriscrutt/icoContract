@@ -96,6 +96,15 @@
                 "anonymous": false,
                 "type": "event"
             }, {
+                "outputs": [],
+                "inputs": [{
+                    "type": "address",
+                    "name": "_tokenAddress"
+                }],
+                "constant": false,
+                "payable": false,
+                "type": "constructor"
+            }, {
                 "name": "mintIt",
                 "outputs": [],
                 "inputs": [{
@@ -135,15 +144,6 @@
                 "type": "function",
                 "gas": 5132
             }, {
-                "outputs": [],
-                "inputs": [{
-                    "type": "address",
-                    "name": "_tokenAddress"
-                }],
-                "constant": false,
-                "payable": false,
-                "type": "constructor"
-            }, {
                 "name": "stockAvailable",
                 "outputs": [{
                     "type": "uint256",
@@ -161,7 +161,7 @@
                 "constant": false,
                 "payable": true,
                 "type": "function",
-                "gas": 50971
+                "gas": 50939
             }, {
                 "name": "getHolding",
                 "outputs": [{
@@ -205,7 +205,8 @@
             }, {
                 "name": "price",
                 "outputs": [{
-                    "type": "fixed168x10",
+                    "type": "uint256",
+                    "unit": "wei",
                     "name": ""
                 }],
                 "inputs": [],
@@ -235,7 +236,7 @@
                 "payable": false,
                 "type": "function",
                 "gas": 1541
-            }]).at('0xcccd97655c5b48ba055f3ec071c003401eb1f7ce');
+            }]).at('0xd94c42f393ebed5f653bf04762818c713724246c');
         console.log("icoContract", icoContract);
 
         const buyButton = document.getElementById('buy');

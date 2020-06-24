@@ -15,7 +15,7 @@ company: Company
 
 
 # Initiate the variables for the company and it's own shares.
-price: public(decimal)
+price: public(uint256(wei))
 
 # Store a ledger of stockholder holdings.
 # holdings: map(address, uint256)
@@ -26,6 +26,23 @@ buy_order: public(uint256)
 
 # owner of this contract
 owner: public(address)
+
+
+# Set up the company
+@public
+def __init__(_tokenAddress: address):
+
+    assert _tokenAddress != ZERO_ADDRESS
+
+    self.price = 1600000000000000
+
+    self.owner = msg.sender
+
+    self.company = Company(_tokenAddress)
+    # self.softCap = soft_cap
+
+    # The company holds all the shares at first, but can sell them all.
+    # self.holdings[self.company] = _total_shares
 
 
 # function to mint tokens to address
@@ -51,24 +68,7 @@ def _transferIt(_to: address, _value: uint256):
 @public
 def transferIt(_to: address, _value: uint256):
     self._transferIt(_to, _value)
-
-
-# Set up the company
-@public
-def __init__(_tokenAddress: address):
-
-    assert _tokenAddress != ZERO_ADDRESS
-
-    self.price = 0.0016
-
-    self.owner = msg.sender
-
-    self.company = Company(_tokenAddress)
-    # self.softCap = soft_cap
-
-    # The company holds all the shares at first, but can sell them all.
-    # self.holdings[self.company] = _total_shares
-
+    
 
 # Find out how much stock the company holds
 @private
@@ -94,8 +94,8 @@ def buyStock():
     #     self.buy_order = msg.value / self.price # rounds down
     # else:
     #     self.buy_order = msg.value / (self.price * 2)
-    assert msg.value >= as_wei_value(self.price, "ether")
-    self.buy_order = msg.value / as_wei_value(self.price, "ether")
+    assert msg.value >= self.price
+    self.buy_order = msg.value / self.price
 
     # Check that there are enough shares to buy.
     assert self._stockAvailable() >= self.buy_order

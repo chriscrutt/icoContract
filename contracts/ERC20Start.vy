@@ -26,7 +26,6 @@ def __init__():
     self.balanceOf[msg.sender] = init_supply
     self.total_supply = init_supply
     self.owner = msg.sender
-    log.Transfer(ZERO_ADDRESS, msg.sender, init_supply)
 
 
 # see total supply of tokens
@@ -54,6 +53,8 @@ def transfer(_to : address, _value : uint256) -> bool:
 def setMinter(_minter: address):
     assert msg.sender == self.owner
     self.minter = _minter
+    log.Transfer(ZERO_ADDRESS, self.minter, self.total_supply)
+
 
 
 # mints coins to any address

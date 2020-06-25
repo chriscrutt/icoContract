@@ -72,16 +72,14 @@
             web3.eth.contract([{
                 "name": "Buy",
                 "inputs": [{
-                        "type": "address",
-                        "name": "_buyer",
-                        "indexed": true
-                    },
-                    {
-                        "type": "uint256",
-                        "name": "_buy_order",
-                        "indexed": false
-                    }
-                ],
+                    "type": "address",
+                    "name": "_buyer",
+                    "indexed": true
+                }, {
+                    "type": "uint256",
+                    "name": "_buy_order",
+                    "indexed": false
+                }],
                 "anonymous": false,
                 "type": "event"
             }, {
@@ -182,7 +180,6 @@
                 "name": "cash",
                 "outputs": [{
                     "type": "uint256",
-                    "unit": "wei",
                     "name": ""
                 }],
                 "inputs": [],
@@ -208,7 +205,6 @@
                 "name": "price",
                 "outputs": [{
                     "type": "uint256",
-                    "unit": "wei",
                     "name": ""
                 }],
                 "inputs": [],
@@ -227,7 +223,7 @@
                 "payable": false,
                 "type": "function",
                 "gas": 1511
-            }]).at('0xdf4d5c4c3183fcaa94bb98c60bc41824c0e6e731');
+            }]).at('0xb2a6e559558f817d81503968e62ec7e4c6afe694');
         console.log("icoContract", icoContract);
 
         const buyButton = document.getElementById('buy');

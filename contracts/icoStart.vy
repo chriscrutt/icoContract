@@ -22,7 +22,6 @@ price: public(uint256(wei))
 # softCap: public(uint256)
 
 # amount of tokens to be bought
-buy_order: public(uint256)
 
 # owner of this contract
 owner: public(address)
@@ -90,24 +89,15 @@ def stockAvailable() -> uint256:
 @payable
 def buyStock():
 
-    # if self.balance < self.softCap:
-    #     self.buy_order = msg.value / self.price # rounds down
-    # else:
-    #     self.buy_order = msg.value / (self.price * 2)
     assert msg.value >= self.price
-    self.buy_order = msg.value / self.price
 
-    # Check that there are enough shares to buy.
-    assert self._stockAvailable() >= self.buy_order
+    buy_order: uint256 = msg.value / self.price
+ 
 
-    # Take the shares off the market and give them to the stockholder.
-    # self.holdings[self.company] -= self.buy_order
-    # self.holdings[msg.sender] += self.buy_order
-
-    self._transferIt(msg.sender, self.buy_order)
+    self._transferIt(msg.sender, buy_order)
 
     # Log the buy event.
-    log.Buy(msg.sender, self.buy_order)
+    log.Buy(msg.sender, buy_order)
 
 
 # Find out how much stock any address has.

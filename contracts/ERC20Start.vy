@@ -38,6 +38,8 @@ def totalSupply() -> uint256:
 # transfers token from one address to another
 @public
 def transfer(_to : address, _value : uint256) -> bool:
+    assert self.balanceOf[msg.sender] >= _value
+
     self.balanceOf[msg.sender] -= _value
     self.balanceOf[_to] += _value
     log.Transfer(msg.sender, _to, _value)
@@ -51,6 +53,8 @@ def transfer(_to : address, _value : uint256) -> bool:
 @nonreentrant('there_can_only_be_juan')
 def setMinter(_minter: address):
     assert msg.sender == self.owner
+    assert _minter.is_contract
+
     self.minter = _minter
     self.balanceOf[_minter] = self.total_supply
 
@@ -65,8 +69,8 @@ def setMinter(_minter: address):
 @public
 def mint(_to: address, _value: uint256):
     assert _to != ZERO_ADDRESS
-    assert self.minter.is_contract
     assert msg.sender == self.minter
+    
     self.total_supply += _value
     self.balanceOf[_to] += _value
     log.Transfer(ZERO_ADDRESS, _to, _value)

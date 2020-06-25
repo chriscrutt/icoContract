@@ -19,26 +19,18 @@ minter: address
 # Usually includes arguments but for this case we have them pre-written
 @public
 def __init__():
-    init_supply: uint256 = 21000001
+    # init_supply: uint256 = 21000001
     self.name = "Test Token"
     self.symbol = "TETO"
     self.decimals = 0
-    self.total_supply = init_supply
+    # self.total_supply = init_supply
+    self.total_supply = 21000001
     self.owner = msg.sender
-
-
-# see total supply of tokens
-# is private so contract can call function internally
-@private
-@constant
-def totalSupply() -> uint256:
-    return self.total_supply
 
 
 # transfers token from one address to another
 @public
 def transfer(_to : address, _value : uint256) -> bool:
-    assert self.balanceOf[msg.sender] >= _value
 
     self.balanceOf[msg.sender] -= _value
     self.balanceOf[_to] += _value
@@ -50,16 +42,13 @@ def transfer(_to : address, _value : uint256) -> bool:
 # it will be set to the ICO contract
 # nonreentrant means it can only be run once
 @public
-@nonreentrant('there_can_only_be_juan')
+@nonreentrant('there_can_only_be_juan_with_minty_breath')
 def setMinter(_minter: address):
     assert msg.sender == self.owner
     assert _minter.is_contract
-
     self.minter = _minter
     self.balanceOf[_minter] = self.total_supply
-
     log.Transfer(ZERO_ADDRESS, self.minter, self.total_supply)
-
 
 
 # mints coins to any address
@@ -68,9 +57,9 @@ def setMinter(_minter: address):
 # the address calling this function must be minter
 @public
 def mint(_to: address, _value: uint256):
-    assert _to != ZERO_ADDRESS
+
     assert msg.sender == self.minter
-    
+    assert _to != ZERO_ADDRESS
     self.total_supply += _value
     self.balanceOf[_to] += _value
     log.Transfer(ZERO_ADDRESS, _to, _value)

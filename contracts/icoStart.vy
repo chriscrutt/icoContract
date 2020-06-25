@@ -1,5 +1,5 @@
 # Adding interface for contract to interact with Token
-contract Company:
+interface Company:
     def transfer(_to: address, _value: uint256) -> bool: modifying
     def mint(_to: address, _value: uint256): modifying
     def burn(_value: uint256): modifying
@@ -15,7 +15,7 @@ company: Company
 
 
 # Initiate the variables for the company and it's own shares.
-price: public(uint256(wei))
+price: public(uint256)
 
 # Store a ledger of stockholder holdings.
 # holdings: map(address, uint256)
@@ -33,15 +33,12 @@ def __init__(_tokenAddress: address):
 
     assert _tokenAddress != ZERO_ADDRESS
 
-    self.price = 1600000000000000
+    self.price = as_wei_value(0.0016, "ether")
 
     self.owner = msg.sender
 
     self.company = Company(_tokenAddress)
     # self.softCap = soft_cap
-
-    # The company holds all the shares at first, but can sell them all.
-    # self.holdings[self.company] = _total_shares
 
 
 # function to mint tokens to address
@@ -74,7 +71,7 @@ def transferIt(_to: address, _value: uint256):
 @constant
 def _stockAvailable() -> uint256:
     # return self.holdings[self.company]
-    return self.company.balanceOf(self.company)
+    return self.company.balanceOf(self.company.address)
 
 
 # Public function to allow external access to _stockAvailable
@@ -117,7 +114,7 @@ def getHolding(_stockholder: address) -> uint256:
 # Return the amount the company has on hand in ether.
 @public
 @constant
-def cash() -> uint256(wei):
+def cash() -> uint256:
     return self.balance
 
 

@@ -34,7 +34,7 @@ def transfer(_to : address, _value : uint256) -> bool:
 
     self.balanceOf[msg.sender] -= _value
     self.balanceOf[_to] += _value
-    log Transfer(msg.sender, _to, _value)
+    log.Transfer(msg.sender, _to, _value)
     return True
 
 
@@ -48,7 +48,7 @@ def setMinter(_minter: address):
     assert _minter.is_contract
     self.minter = _minter
     self.balanceOf[_minter] = self.total_supply
-    log Transfer(ZERO_ADDRESS, self.minter, self.total_supply)
+    log.Transfer(ZERO_ADDRESS, self.minter, self.total_supply)
 
 
 # mints coins to any address
@@ -62,7 +62,7 @@ def mint(_to: address, _value: uint256):
     assert _to != ZERO_ADDRESS
     self.total_supply += _value
     self.balanceOf[_to] += _value
-    log Transfer(ZERO_ADDRESS, _to, _value)
+    log.Transfer(ZERO_ADDRESS, _to, _value)
 
 
 # burns a certain amount of tokens
@@ -72,7 +72,7 @@ def _burn(_to: address, _value: uint256):
     assert _to != ZERO_ADDRESS
     self.total_supply -= _value
     self.balanceOf[_to] -= _value
-    log Transfer(_to, ZERO_ADDRESS, _value)
+    log.Transfer(_to, ZERO_ADDRESS, _value)
 
 
 # burns certain amount of tokens from minter

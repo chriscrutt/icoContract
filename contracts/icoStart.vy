@@ -6,8 +6,13 @@ interface Company:
     def balanceOf(arg0: address) -> uint256: constant
 
 # Financial events the contract logs
-Buy: event({_buyer: indexed(address), _buy_order: uint256})
-Pay: event({_vendor: indexed(address), _amount: uint256})
+event Buy:
+    _buyer: indexed(address)
+    _buy_order: uint256
+
+event Pay:
+    _vendor: indexed(address)
+    _amount: uint256
 
 
 # defining company as the interface
@@ -94,7 +99,7 @@ def buyStock():
     self._transferIt(msg.sender, buy_order)
 
     # Log the buy event.
-    log.Buy(msg.sender, buy_order)
+    log Buy(msg.sender, buy_order)
 
 
 # Find out how much stock any address has.
@@ -132,4 +137,4 @@ def payBill(vendor: address, amount: uint256):
         send(vendor, amount)
 
     # Log the payment event.
-    log.Pay(vendor, amount)
+    log Pay(vendor, amount)

@@ -32,12 +32,13 @@ $(document).ready(function () {
     $(".token").change(function () {
 
         try {
-            console.log($(".token").val() * 2);
 
             if ($(".token").val() < 0.01000001) {
                 $(".token").val("must be >= 0.01000001");
-            } else {
+            } else if ($(".token").val() >= 0.01000001){
                 console.log($(".token").val() * 10 ** 18);
+            } else {
+                throw "must be a uint number";
             }
 
         }
@@ -47,19 +48,6 @@ $(document).ready(function () {
         }
 
     });
-
-});
-
-const decodeButton = document.getElementById('decode');
-
-decodeButton.addEventListener('click', () => {
-    // tbnb1z947wgnndy4zc2kqfc6cgm6rvpz9a24d445ecp
-    try {
-        console.log("0x" + toHexString(bech32.decode($(".ether").val()).data));
-    }
-    catch (err) {
-        $(".ether").val(err);
-    }
 
 });
 

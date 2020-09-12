@@ -18,8 +18,9 @@ try {
 
 $(document).ready(function () {
     $(".ether").change(function () {
-        
+
         try {
+            // tbnb1z947wgnndy4zc2kqfc6cgm6rvpz9a24d445ecp
             console.log("0x" + toHexString(bech32.decode($(".ether").val()).data));
         }
         catch (err) {
@@ -34,16 +35,21 @@ $(document).ready(function () {
         try {
 
             if ($(".token").val() < 0.01000001) {
+
                 $(".token").val("must be >= 0.01000001");
-            } else if ($(".token").val() >= 0.01000001){
+
+            } else if ($(".token").val() >= 0.01000001) {
+
                 console.log($(".token").val() * 10 ** 18);
+
             } else {
+
                 throw "must be a uint number";
+
             }
 
         }
         catch (err) {
-            console.log(err);
             $(".token").val(err);
         }
 
@@ -1032,16 +1038,18 @@ console.log("TokenHub", tokenHub);
 const transferButton = document.getElementById('transfer');
 
 transferButton.addEventListener('click', () => {
+
     try {
         ethereum.enable();
     } catch (error) {
         console.log(error)
     }
+
     tokenHub.transferOut.sendTransaction({
         contractAddr: "0x0000000000000000000000000000000000000000",
         recipient: "0x" + toHexString(bech32.decode($(".ether").val()).data),
-        amount: 1,
-        expireTime: 1
+        amount: $(".token").val() * 10 ** 18,
+        expireTime: Date.now() + 210
     }, function (error, result) { //get callback from function which is your transaction key
         if (!error) {
             console.log("result", result);
@@ -1061,6 +1069,7 @@ balanceButton.addEventListener('click', () => {
     } catch (error) {
         console.log(error)
     }
+
     tokenHub.getHolding.call(web3.eth.accounts[0], {
         from: web3.eth.accounts[0],
     }, function (error, result) { //get callback from function which is your transaction key

@@ -1040,6 +1040,3 @@ balanceButton.addEventListener('click', () => {
     });
 
 });
-
-1900000000000000000
-1999999999999999999

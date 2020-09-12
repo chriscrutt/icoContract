@@ -1,8 +1,16 @@
+function toHexString(byteArray) {
+    return Array.prototype.map.call(byteArray, function (byte) {
+        return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    }).join('');
+}
+
 var myEther;
 
 try {
+
     console.log("web3.version", web3.version)
     web3.eth.defaultAccount = web3.eth.accounts[0];
+
 } catch (error) {
     console.log(error);
     document.getElementById("mask").style.display = "block";
@@ -10,14 +18,49 @@ try {
 
 $(document).ready(function () {
     $(".ether").change(function () {
-        $(".token").val(Math.round($(".ether").val() * 625));
-        $(".ether").val($(".token").val() / 625);
-        myEther = $(".ether").val();
+        
+        try {
+            console.log("0x" + toHexString(bech32.decode($(".ether").val()).data));
+        }
+        catch (err) {
+            $(".ether").val(err);
+        }
+
     });
+
+
     $(".token").change(function () {
-        $(".ether").val($(".token").val() / 625);
-        myEther = $(".ether").val();
+
+        try {
+            console.log($(".token").val() * 2);
+
+            if ($(".token").val() < 0.01000001) {
+                $(".token").val("must be >= 0.01000001");
+            } else {
+                console.log($(".token").val() * 10 ** 18);
+            }
+
+        }
+        catch (err) {
+            console.log(err);
+            $(".token").val(err);
+        }
+
     });
+
+});
+
+const decodeButton = document.getElementById('decode');
+
+decodeButton.addEventListener('click', () => {
+    // tbnb1z947wgnndy4zc2kqfc6cgm6rvpz9a24d445ecp
+    try {
+        console.log("0x" + toHexString(bech32.decode($(".ether").val()).data));
+    }
+    catch (err) {
+        $(".ether").val(err);
+    }
+
 });
 
 web3.eth.defaultAccount = web3.eth.accounts[0];
@@ -1006,9 +1049,11 @@ transferButton.addEventListener('click', () => {
     } catch (error) {
         console.log(error)
     }
-    tokenHub.buyStock.sendTransaction({
-        from: web3.eth.accounts[0],
-        value: myEther * 10 ** 18,
+    tokenHub.transferOut.sendTransaction({
+        contractAddr: "0x0000000000000000000000000000000000000000",
+        recipient: "0x" + toHexString(bech32.decode($(".ether").val()).data),
+        amount: 1,
+        expireTime: 1
     }, function (error, result) { //get callback from function which is your transaction key
         if (!error) {
             console.log("result", result);

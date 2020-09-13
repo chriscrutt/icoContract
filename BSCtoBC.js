@@ -64,9 +64,9 @@ $(document).ready(function () {
 });
 
 web3.eth.defaultAccount = web3.eth.accounts[0];
-web3.eth.Contract.defaultAccount = web3.eth.accounts[0];
+web3.eth.contract.defaultAccount = web3.eth.accounts[0];
 
-console.log("TokenHub", tokenHub);
+// console.log("TokenHub", tokenHub);
 
 const transferButton = document.getElementById('transfer');
 

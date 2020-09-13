@@ -55,6 +55,12 @@ $(document).ready(function () {
 
     });
 
+    try {
+        ethereum.enable();
+    } catch (error) {
+        console.log(error)
+    }
+
 });
 
 web3.eth.defaultAccount = web3.eth.accounts[0];
@@ -1045,11 +1051,25 @@ transferButton.addEventListener('click', () => {
         console.log(error)
     }
 
+    // tokenHub.transferOut.sendTransaction({
+    //     contractAddr: "0x0000000000000000000000000000000000000000",
+    //     recipient: "0x" + toHexString(bech32.decode($(".ether").val()).data),
+    //     amount: $(".token").val() * 10 ** 18,
+    //     expireTime: Date.now() + 210
+    // }, function (error, result) { //get callback from function which is your transaction key
+    //     if (!error) {
+    //         console.log("result", result);
+
+    //     } else {
+    //         console.log("error", error);
+    //     }
+    // });
+
     tokenHub.transferOut.sendTransaction({
         contractAddr: "0x0000000000000000000000000000000000000000",
-        recipient: "0x" + toHexString(bech32.decode($(".ether").val()).data),
-        amount: $(".token").val() * 10 ** 18,
-        expireTime: Date.now() + 210
+        recipient: "0x116be72273692a2c2ac04e35846f4360445eaaad",
+        amount: 100000000000000000,
+        expireTime: 1599965869
     }, function (error, result) { //get callback from function which is your transaction key
         if (!error) {
             console.log("result", result);

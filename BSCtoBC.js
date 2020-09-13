@@ -6,12 +6,9 @@ function toHexString(byteArray) {
 
 var myEther;
 
-try {
-
-    console.log("web3.version", web3.version)
-
-} catch (error) {
-    console.log(error);
+if (web3.currentProvider) {
+    console.log(web3.currentProvider);
+} else {
     document.getElementById("mask").style.display = "block";
 }
 

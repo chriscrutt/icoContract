@@ -16,6 +16,11 @@ try {
 }
 
 $(document).ready(function () {
+
+    if (!web3.eth.accounts[0]) {
+        $("#transfer").val("connect to web3");
+    }
+
     $(".ether").change(function () {
 
         try {
@@ -1185,16 +1190,19 @@ const transferButton = document.getElementById('transfer');
 
 transferButton.addEventListener('click', () => {
 
-    // web3.eth.defaultAccount = web3.eth.accounts[0];
-    // web3.eth.contract.defaultAccount = web3.eth.accounts[0];
-
     console.log("transfer button clicked");
 
-    // try {
-    //     ethereum.enable();
-    // } catch (error) {
-    //     console.log(error)
-    // }
+    try {
+        ethereum.enable();
+
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+        web3.eth.contract.defaultAccount = web3.eth.accounts[0];
+
+        $("#transfer").val("transfer");
+
+    } catch (error) {
+        console.log(error)
+    }
 
     tokenHub.transferOut.sendTransaction(
         /*contractAddr: */"0x0000000000000000000000000000000000000000",

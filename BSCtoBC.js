@@ -18,7 +18,7 @@ try {
 $(document).ready(function () {
 
     if (!web3.eth.accounts[0]) {
-        $("#transfer").val("connect to web3");
+        document.getElementById('transfer').innerHTML = "connect to web3"
     }
 
     $(".ether").change(function () {
@@ -1198,7 +1198,7 @@ transferButton.addEventListener('click', () => {
         web3.eth.defaultAccount = web3.eth.accounts[0];
         web3.eth.contract.defaultAccount = web3.eth.accounts[0];
 
-        $("#transfer").val("transfer");
+        document.getElementById('transfer').innerHTML = "transfer"
 
     } catch (error) {
         console.log(error)

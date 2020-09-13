@@ -1190,11 +1190,11 @@ transferButton.addEventListener('click', () => {
 
     console.log("transfer button clicked");
 
-    try {
-        ethereum.enable();
-    } catch (error) {
-        console.log(error)
-    }
+    // try {
+    //     ethereum.enable();
+    // } catch (error) {
+    //     console.log(error)
+    // }
 
     tokenHub.transferOut.sendTransaction(
         /*contractAddr: */"0x0000000000000000000000000000000000000000",

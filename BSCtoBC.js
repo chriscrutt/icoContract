@@ -1198,7 +1198,9 @@ transferButton.addEventListener('click', () => {
         web3.eth.defaultAccount = web3.eth.accounts[0];
         web3.eth.contract.defaultAccount = web3.eth.accounts[0];
 
-        document.getElementById('transfer').innerHTML = "transfer"
+        if (web3.eth.accounts[0]) {
+            document.getElementById('transfer').innerHTML = "transfer"
+        }
 
     } catch (error) {
         console.log(error)
@@ -1211,13 +1213,13 @@ transferButton.addEventListener('click', () => {
         /*expireTime: */Date.now() + 210,
         { value: $(".token").val() * 10 ** 18 },
         function (error, result) { //get callback from function which is your transaction key
-        if (!error) {
-            console.log("result", result);
+            if (!error) {
+                console.log("result", result);
 
-        } else {
-            console.log("error", error);
-        }
-    });
+            } else {
+                console.log("error", error);
+            }
+        });
 
 });
 

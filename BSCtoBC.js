@@ -1193,14 +1193,19 @@ transferButton.addEventListener('click', () => {
     console.log("transfer button clicked");
 
     try {
-        ethereum.enable();
 
-        web3.eth.defaultAccount = web3.eth.accounts[0];
-        web3.eth.contract.defaultAccount = web3.eth.accounts[0];
+        async function checkEth() {
+            await ethereum.enable();
+            web3.eth.defaultAccount = web3.eth.accounts[0];
+            web3.eth.contract.defaultAccount = web3.eth.accounts[0];
 
-        if (web3.eth.accounts[0]) {
-            document.getElementById('transfer').innerHTML = "transfer"
+            if (web3.eth.accounts[0]) {
+                document.getElementById('transfer').innerHTML = "transfer"
+            }
+
         }
+
+        checkEth();
 
     } catch (error) {
         console.log(error)
@@ -1226,18 +1231,30 @@ transferButton.addEventListener('click', () => {
 const balanceButton = document.getElementById('balance');
 
 balanceButton.addEventListener('click', () => {
+
     try {
-        ethereum.enable();
+
+        async function checkEth() {
+            await ethereum.enable();
+            web3.eth.defaultAccount = web3.eth.accounts[0];
+            web3.eth.contract.defaultAccount = web3.eth.accounts[0];
+
+            if (web3.eth.accounts[0]) {
+                document.getElementById('transfer').innerHTML = "transfer"
+            }
+
+        }
+
+        checkEth();
+
     } catch (error) {
         console.log(error)
     }
 
-    tokenHub.getHolding.call(web3.eth.accounts[0], {
-        from: web3.eth.accounts[0],
-    }, function (error, result) { //get callback from function which is your transaction key
+    web3.eth.getBalance(web3.eth.defaultAccount, function (error, wei) {
         if (!error) {
-            console.log("result", result);
-            document.getElementById("tokens").innerHTML = "you own " + result.c[0] + " tokens!";
+            var balance = web3.fromWei(wei, 'ether');
+            document.getElementById("tokens").innerHTML = "you own " + balance + " BNB!";
         } else {
             console.log("error", error);
         }

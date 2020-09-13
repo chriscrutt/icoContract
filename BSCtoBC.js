@@ -1216,22 +1216,6 @@ transferButton.addEventListener('click', () => {
     //     }
     // });
 
-    // tokenHub.transferOut.sendTransaction(
-    //     {
-    //         contractAddr: "0x0000000000000000000000000000000000000000",
-    //         recipient: "0x116be72273692a2c2ac04e35846f4360445eaaad",
-    //         amount: 100000000000000000,
-    //         expireTime: 1599995869
-    //     },
-    //     { value: 101000000000000000 },
-    //     function (error, result) { //get callback from function which is your transaction key
-    //         if (!error) {
-    //             console.log("result", result);
-
-    //         } else {
-    //             console.log("error", error);
-    //         }
-    //     });
 
     tokenHub.transferOut.sendTransaction(
         "0x0000000000000000000000000000000000000000",

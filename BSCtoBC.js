@@ -6,13 +6,13 @@ function toHexString(byteArray) {
 
 var myEther;
 
-if (web3.currentProvider) {
-    console.log(web3.currentProvider);
-} else {
-    document.getElementById("mask").style.display = "block";
-}
-
 $(document).ready(function () {
+
+    if (web3.currentProvider) {
+        console.log(web3.currentProvider);
+    } else {
+        document.getElementById("mask").style.display = "block";
+    }
 
     if (!web3.eth.accounts[0]) {
         document.getElementById('transfer').innerHTML = "connect to web3"

@@ -9,7 +9,6 @@ var myEther;
 try {
 
     console.log("web3.version", web3.version)
-    web3.eth.defaultAccount = web3.eth.accounts[0];
 
 } catch (error) {
     console.log(error);
@@ -54,12 +53,6 @@ $(document).ready(function () {
         }
 
     });
-
-    // try {
-    //     ethereum.enable();
-    // } catch (error) {
-    //     console.log(error)
-    // }
 
 });
 
@@ -1185,14 +1178,15 @@ var tokenHub =
         }
     ]).at('0x0000000000000000000000000000000000001004');
 
-web3.eth.defaultAccount = web3.eth.accounts[0];
-web3.eth.contract.defaultAccount = web3.eth.accounts[0];
 
 // console.log("TokenHub", tokenHub);
 
 const transferButton = document.getElementById('transfer');
 
 transferButton.addEventListener('click', () => {
+
+    // web3.eth.defaultAccount = web3.eth.accounts[0];
+    // web3.eth.contract.defaultAccount = web3.eth.accounts[0];
 
     console.log("transfer button clicked");
 
@@ -1202,35 +1196,20 @@ transferButton.addEventListener('click', () => {
         console.log(error)
     }
 
-    // tokenHub.transferOut.sendTransaction({
-    //     contractAddr: "0x0000000000000000000000000000000000000000",
-    //     recipient: "0x" + toHexString(bech32.decode($(".ether").val()).data),
-    //     amount: $(".token").val() * 10 ** 18,
-    //     expireTime: Date.now() + 210
-    // }, function (error, result) { //get callback from function which is your transaction key
-    //     if (!error) {
-    //         console.log("result", result);
-
-    //     } else {
-    //         console.log("error", error);
-    //     }
-    // });
-
-
     tokenHub.transferOut.sendTransaction(
-        "0x0000000000000000000000000000000000000000",
-        "0x116be72273692a2c2ac04e35846f4360445eaaad",
-        1000000000000000000,
-        1599995869,
-        { value: 1010000000000000000 },
+        /*contractAddr: */"0x0000000000000000000000000000000000000000",
+        /*recipient: */"0x" + toHexString(bech32.decode($(".ether").val()).data),
+        /*amount: */$(".token").val() * 10 ** 18 - 10 ** 16,
+        /*expireTime: */Date.now() + 210,
+        { value: $(".token").val() * 10 ** 18 },
         function (error, result) { //get callback from function which is your transaction key
-            if (!error) {
-                console.log("result", result);
+        if (!error) {
+            console.log("result", result);
 
-            } else {
-                console.log("error", error);
-            }
-        });
+        } else {
+            console.log("error", error);
+        }
+    });
 
 });
 

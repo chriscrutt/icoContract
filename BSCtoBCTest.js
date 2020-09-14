@@ -7,7 +7,7 @@ function toHexString(byteArray) {
 var myEther;
 
 $(window).on("load", function () {
-    
+
     if (web3.currentProvider) {
         console.log(web3.currentProvider);
     } else {
@@ -82,7 +82,7 @@ transferButton.addEventListener('click', () => {
                 alert("seems you're on the main network! Switching pages");
                 window.location.replace("./BSCtoBC.html");
                 throw "not on testnet";
-            } else if (web.version.network != 97) {
+            } else if (web3.version.network != 97) {
                 alert("seems you're not on Binance's test or main net! here's more details");
                 window.open("https://docs.binance.org/smart-chain/wallet/metamask.html");
                 throw "not on test or main";

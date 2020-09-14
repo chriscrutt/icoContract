@@ -50,7 +50,7 @@ S(window).load(function () {
 
             } else {
 
-                throw "must be a uint number";
+                throw "must be a number";
 
             }
 

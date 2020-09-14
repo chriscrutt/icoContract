@@ -6,7 +6,7 @@ function toHexString(byteArray) {
 
 var myEther;
 
-$(document).ready(function () {
+$(window).load(function () {
 
     if (web3.currentProvider) {
         console.log(web3.currentProvider);

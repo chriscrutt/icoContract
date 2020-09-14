@@ -1120,34 +1120,3 @@ const abi = [
         "type": "function"
     }
 ];
-
-let contract;
-
-window.addEventListener('load', () => {
-    if (typeof (web3) === 'undefined') {
-        return console.log("Metamask is not installed.");
-    }
-
-    contract = web3.eth.contract(abi).at(contract_address);
-
-    contract.message.call((error, result) => {
-        if (error) {
-            return console.log(error);
-        }
-        $('#message').text(result);
-    });
-});
-
-function setMessage() {
-    let message = $('#new_message').val();
-    contract.setMessage.sendTransaction(
-        message,
-        { gasPrice: web3.toWei(4.1, 'Gwei') },
-        (error, result) => {
-            if (error) {
-                return console.log(error);
-            }
-            console.log("txhash: " + result);
-        }
-    );
-}

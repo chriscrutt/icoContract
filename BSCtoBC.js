@@ -19,6 +19,8 @@ $(document).ready(function () {
     } else if (web3.version.network == 97) {
         alert("seems you're on the test network! Switching pages");
         window.location.replace("./BSCtoBCTest.html");
+    } else {
+        document.getElementById('transfer').innerHTML = "transfer"
     }
 
     $(".ether").change(function () {

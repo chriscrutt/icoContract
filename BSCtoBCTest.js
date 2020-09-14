@@ -16,9 +16,9 @@ $(document).ready(function () {
 
     if (!web3.eth.accounts[0]) {
         document.getElementById('transfer').innerHTML = "connect to web3"
-    } else if (web3.version.network == 97) {
-        alert("seems you're on the test network! Switching pages");
-        window.location.replace("./BSCtoBCTest.html");
+    } else if (web3.version.network == 56) {
+        alert("seems you're on the main network! Switching pages");
+        window.location.replace("./BSCtoBC.html");
     }
 
     $(".ether").change(function () {
@@ -1197,11 +1197,11 @@ transferButton.addEventListener('click', () => {
         async function checkEth() {
             await ethereum.enable();
 
-            if (web3.version.network == 97) {
-                alert("seems you're on the test network! Switching pages");
-                window.location.replace("./BSCtoBCTest.html");
-                throw "not on mainnet";
-            } else if (web.version.network != 56) {
+            if (web3.version.network == 56) {
+                alert("seems you're on the main network! Switching pages");
+                window.location.replace("./BSCtoBC.html");
+                throw "not on testnet";
+            } else if (web.version.network != 97) {
                 alert("seems you're not on Binance's test or main net! here's more details");
                 window.open("https://docs.binance.org/smart-chain/wallet/metamask.html");
                 throw "not on test or main";

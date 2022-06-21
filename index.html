@@ -18,6 +18,8 @@
 
         <h1>Buy Our Token!</h1>
 
+        <button id="connect" onClick="ethereum.request({ method: 'eth_requestAccounts' });">Connect to MetaMask</button>
+
         <label for="name" class="col-lg-2 control-label">Amount in Ether</label>
         <input class="ether" id="name" type="text">
 

@@ -36,6 +36,19 @@ ethereumButton.addEventListener("click", () => {
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+function hexify(utf) {
+    let yo = utf
+        .split("")
+        .map((c) => c.charCodeAt(0).toString(16).padStart(2, "0"))
+        .join("");
+
+    if (yo != "") {
+        return "0x" + yo;
+    } else {
+        return "";
+    }
+}
+
 const sendEthButton = document.querySelector("#sendEthButton");
 
 //Sending Ethereum to an address
@@ -46,11 +59,14 @@ sendEthButton.addEventListener("click", () => {
             params: [
                 {
                     from: ethereum.selectedAddress,
-                    to: ethereum.selectedAddress,
-                    //   value: '0x29a2241af62c0000',
-                    //   gasPrice: '0x09184e72a000',
-                    //   gas: '0x2710',
-                    data: "0x646179756d6d6d207768617427732075703f",
+                    to: document.querySelector("#to").value,
+                    value: (
+                        document.querySelector("#ether").value *
+                        10 ** 18
+                    ).toString(16),
+                    // gasPrice: '0x09184e72a000',
+                    gas: "0x33450",
+                    data: hexify(document.querySelector("#message").value)
                 },
             ],
         })

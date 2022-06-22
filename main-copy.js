@@ -129,9 +129,36 @@ daiBalanceButton.addEventListener("click", async () => {
         .balanceOf(signer.getAddress())
         .then(async (p) => {
             yo = await p;
-            document.querySelector("#daiBalance").innerHTML = 
-                ethers.utils.formatUnits(p._hex, await erc20.decimals()) + " DAI";
+            document.querySelector("#daiBalance").innerHTML =
+                ethers.utils.formatUnits(p._hex, await erc20.decimals()) +
+                " DAI";
             document.querySelector("#daiBalance").style.display = "block";
+        })
+        .catch((error) => console.error);
+});
+
+// tx = await erc20_rw.transfer("ricmoo.eth", parseUnits("1.23", await erc20.decimals()));
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+const sendDaiButton = document.querySelector("#sendDaiButton");
+
+//Sending Dai to an address
+sendDaiButton.addEventListener("click", async () => {
+    const tx = await erc20_rw
+        .transfer(
+            await provider.resolveName(document.querySelector("#toDai").value),
+            ethers.utils.parseUnits(
+                document.querySelector("#dai").value,
+                await erc20.decimals()
+            )
+        )
+        .then((txHash) => {
+            document.querySelector("#sendDai").innerHTML = txHash.hash;
+            document.querySelector("#sendDai").style.display = "block";
+            document.querySelector("#sendDai").href += txHash.hash;
         })
         .catch((error) => console.error);
 });

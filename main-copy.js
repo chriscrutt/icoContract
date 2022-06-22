@@ -49,7 +49,8 @@ const etherBalanceButton = document.querySelector("#etherBalanceButton");
 
 etherBalanceButton.addEventListener("click", async () => {
     balance = await provider.getBalance(signer.getAddress());
-    document.querySelector("#etherBalance").innerHTML = ethers.utils.formatEther(balance) + " Ether";
+    document.querySelector("#etherBalance").innerHTML =
+        ethers.utils.formatEther(balance) + " Ether";
     document.querySelector("#etherBalance").style.display = "block";
 });
 
@@ -78,7 +79,11 @@ sendEthButton.addEventListener("click", async () => {
             ),
             data: hexify(document.querySelector("#message").value),
         })
-        .then((txHash) => console.log(txHash))
+        .then((txHash) => {
+            document.querySelector("#sendEth").innerHTML = txHash.hash;
+            document.querySelector("#sendEth").style.display = "block";
+            document.querySelector("#sendEth").href += txHash.hash;
+        })
         .catch((error) => console.error);
 });
 
@@ -117,14 +122,16 @@ const erc20 = new ethers.Contract(address, abi, provider);
 // - Sending transactions for non-constant functions
 const erc20_rw = new ethers.Contract(address, abi, signer);
 
-const daiBalanceButton = document.querySelector("#daiBalance");
+const daiBalanceButton = document.querySelector("#daiBalanceButton");
 
 daiBalanceButton.addEventListener("click", async () => {
     const num = erc20
         .balanceOf(signer.getAddress())
         .then(async (p) => {
             yo = await p;
-            console.log(ethers.utils.formatUnits(p._hex, await erc20.decimals()));
+            document.querySelector("#daiBalance").innerHTML = 
+                ethers.utils.formatUnits(p._hex, await erc20.decimals()) + " DAI";
+            document.querySelector("#daiBalance").style.display = "block";
         })
         .catch((error) => console.error);
 });

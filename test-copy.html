@@ -29,12 +29,11 @@
         <!-- ------------------------------------------------------------------------------------------------------------ -->
         <!-- ------------------------------------------------------------------------------------------------------------ -->
 
-        <button id="etherBalanceButton">Get Ether Balance</button>
-        <div id="etherBalance" style="display: none">
+        <div id="etherBalance" class="response">
             <label class="col-lg-2 control-label">0</label>
         </div>
+        <button id="etherBalanceButton">Get Ether Balance</button>
 
-        <label class="col-lg-2 control-label"></label>
         <label class="col-lg-2 control-label">Amount in Ether</label>
         <input id="ether" type="text">
 
@@ -44,9 +43,15 @@
         <label class="col-lg-2 control-label">Fun message (can be blank)</label>
         <input id="message" type="text">
 
+        <a id="sendEth" class="response" href="https://kovan.etherscan.io/tx/">
+            <label class="col-lg-2 control-label">0</label>
+        </a>
         <button id="sendEthButton">Send Eth</button>
 
-        <button id="daiBalance">Get Dai Balance</button>
+        <div id="daiBalance" class="response">
+            <label class="col-lg-2 control-label">0</label>
+        </div>
+        <button id="daiBalanceButton">Get Dai Balance</button>
 
     </div>
 

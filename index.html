@@ -48,11 +48,7 @@
     <script>
         var myEther;
 
-        try {
-            console.log("web3.version", web3.version)
-            web3.eth.defaultAccount = web3.eth.accounts[0];
-        } catch (error) {
-            console.log(error);
+        if (typeof window.ethereum === 'undefined') {
             document.getElementById("mask").style.display = "block";
         }
 
@@ -67,8 +63,6 @@
                 myEther = $(".ether").val();
             });
         });
-
-        web3.eth.defaultAccount = web3.eth.accounts[0];
 
         var icoContract =
             web3.eth.contract([{

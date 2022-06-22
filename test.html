@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <button id="connect">Connect to MetaMask</button>
+
+        <div id="mask" style="display: none">
+            <label class="col-lg-2 control-label">It seems your browser doesn't support MetaMask or it is not
+                installed.</label>
+            <label class="col-lg-2 control-label">Go to the <a href="https://metamask.io">MetaMask Website</a> for more
+                details</label>
+        </div>
+
+        <!-- ------------------------------------------------------------------------------------------------------------ -->
+        <!-- ------------------------------------------------------------------------------------------------------------ -->
+        <!-- ------------------------------------------------------------------------------------------------------------ -->
+
+        <button id="sendEthButton">Send Eth</button>
+
+    </div>
+
+    <!-- <script>
+        
+        if (typeof window.ethereum !== 'undefined') {
+            console.log('MetaMask is installed!');
+        } else {
+            document.getElementById("mask").style.display = "block";
+            console.log("nooooo")
+        }
+
+    </script> -->
+
+</body>
+
+<script src="main.js"></script>
+
+</html>

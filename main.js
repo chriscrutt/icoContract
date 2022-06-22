@@ -60,13 +60,15 @@ sendEthButton.addEventListener("click", () => {
                 {
                     from: ethereum.selectedAddress,
                     to: document.querySelector("#to").value,
-                    value: (
-                        document.querySelector("#ether").value *
-                        10 ** 18
-                    ).toString(16),
+                    value:
+                        "0x" +
+                        (
+                            document.querySelector("#ether").value *
+                            10 ** 18
+                        ).toString(16),
                     // gasPrice: '0x09184e72a000',
                     gas: "0x33450",
-                    data: hexify(document.querySelector("#message").value)
+                    data: hexify(document.querySelector("#message").value),
                 },
             ],
         })

@@ -122,7 +122,7 @@ sendEthButton.addEventListener("click", async () => {
         .then((txHash) => {
             document.querySelector("#sendEth").innerHTML = txHash.hash;
             document.querySelector("#sendEth").style.display = "block";
-            document.querySelector("#sendEth").href += txHash.hash;
+            document.querySelector("#sendEth").href = "https://kovan.etherscan.io/tx/" + txHash.hash;
         })
         .catch((error) => console.error);
 });
@@ -248,7 +248,7 @@ sendTokenButton.addEventListener("click", async () => {
         .then((txHash) => {
             document.querySelector("#sendToken").innerHTML = txHash.hash;
             document.querySelector("#sendToken").style.display = "block";
-            document.querySelector("#sendToken").href += txHash.hash;
+            document.querySelector("#sendToken").href = "https://kovan.etherscan.io/tx/" + txHash.hash;
         })
         .catch((error) => console.error);
 });

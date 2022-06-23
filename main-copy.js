@@ -10,32 +10,31 @@ window.addEventListener("load", function () {
 });
 
 async function switchChains() {
-
     try {
         await ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x2a' }],
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: "0x2a" }],
         });
-      } catch (switchError) {
+    } catch (switchError) {
         // This error code indicates that the chain has not been added to MetaMask.
         if (switchError.code === 4902) {
-          try {
-            await ethereum.request({
-              method: 'wallet_addEthereumChain',
-              params: [
-                {
-                  chainId: '0x2a',
-                  chainName: 'Kovan Test Network',
-                  rpcUrls: ['https://kovan.infura.io/v3/'],
-                },
-              ],
-            });
-          } catch (addError) {
-            // handle "add" error
-          }
+            try {
+                await ethereum.request({
+                    method: "wallet_addEthereumChain",
+                    params: [
+                        {
+                            chainId: "0x2a",
+                            chainName: "Kovan Test Network",
+                            rpcUrls: ["https://kovan.infura.io/v3/"],
+                        },
+                    ],
+                });
+            } catch (addError) {
+                // handle "add" error
+            }
         }
         // handle other "switch" errors
-      }
+    }
 
     await ethereum.request({
         method: "wallet_switchEthereumChain",
@@ -51,8 +50,7 @@ function colorStuff() {
             document.querySelector("#connect").innerHTML =
                 "Connect to MetaMask";
         } else if (ethereum.chainId != "0x2a") {
-            document.querySelector("#connect").innerHTML =
-                "Switch to Kovan";
+            document.querySelector("#connect").innerHTML = "Switch to Kovan";
         } else {
             document.querySelector("#connect").style.background = "lightgreen";
             document.querySelector("#connect").innerHTML =

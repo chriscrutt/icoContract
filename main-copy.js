@@ -9,6 +9,13 @@ window.addEventListener("load", function () {
     }
 });
 
+async function switchChains() {
+    await ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0x2a" }],
+    });
+}
+
 function colorStuff() {
     if (typeof window.ethereum !== "undefined") {
         console.log("MetaMask is installed!");
@@ -16,6 +23,9 @@ function colorStuff() {
             document.querySelector("#connect").style.background = "";
             document.querySelector("#connect").innerHTML =
                 "Connect to MetaMask";
+        } else if (ethereum.chainId != "0x2a") {
+            document.querySelector("#connect").innerHTML =
+                "Switch to Kovan";
         } else {
             document.querySelector("#connect").style.background = "lightgreen";
             document.querySelector("#connect").innerHTML =
@@ -24,8 +34,12 @@ function colorStuff() {
     }
 }
 
-ethereum.on("accountsChanged", function (accounts) {
+ethereum.on("accountsChanged", function () {
     colorStuff();
+});
+
+ethereum.on("chainChanged", function () {
+    window.location.reload();
 });
 
 const ethereumButton = document.querySelector("#connect");
@@ -37,6 +51,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum);
 ethereumButton.addEventListener("click", () => {
     // ethereum.request({ method: "eth_requestAccounts" });
     provider.send("eth_requestAccounts", []);
+    switchChains();
 });
 
 const signer = provider.getSigner();
@@ -50,7 +65,7 @@ const etherBalanceButton = document.querySelector("#etherBalanceButton");
 etherBalanceButton.addEventListener("click", async () => {
     balance = await provider.getBalance(signer.getAddress());
     document.querySelector("#etherBalance").innerHTML =
-        ethers.utils.formatEther(balance) + " Ether";
+        ethers.utils.commify(ethers.utils.formatEther(balance)) + " Ether";
     document.querySelector("#etherBalance").style.display = "block";
 });
 
@@ -159,7 +174,6 @@ function getTokenInfo(write) {
             // - Sending transactions for non-constant functions
             return new ethers.Contract(address, abi, signer);
         }
-
     } catch (err) {
         document.getElementById("dropbtn").innerHTML = "select a coin";
         document.getElementById("dropbtn").style.color = "red";
@@ -176,15 +190,16 @@ tokenBalanceButton.addEventListener("click", async () => {
         .then(async (p) => {
             yo = await p;
             document.querySelector("#tokenBalance").innerHTML =
-                ethers.utils.formatUnits(p._hex, await erc20.decimals()) + " " + 
+                ethers.utils.commify(
+                    ethers.utils.formatUnits(p._hex, await erc20.decimals())
+                ) +
+                " " +
                 document.querySelector("#dropbtn").innerHTML;
             document.querySelector("#tokenBalance").style.display = "block";
             document.getElementById("dropbtn").style.color = "white";
         })
         .catch((error) => console.error);
 });
-
-// tx = await erc20_rw.transfer("ricmoo.eth", parseUnits("1.23", await erc20.decimals()));
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -197,7 +212,9 @@ sendTokenButton.addEventListener("click", async () => {
     const erc20_rw = getTokenInfo(true);
     const tx = await erc20_rw
         .transfer(
-            await provider.resolveName(document.querySelector("#toToken").value),
+            await provider.resolveName(
+                document.querySelector("#toToken").value
+            ),
             ethers.utils.parseUnits(
                 document.querySelector("#token").value,
                 await erc20_rw.decimals()
